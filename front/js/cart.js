@@ -11,16 +11,14 @@ const sectioncart = document.querySelector('#cart__items');
 let totalQuantity = 0;
 let totalPrice = 0;
 
-cart.forEach((product) => {
+if (cart !=null) {
 
-    
-
+    cart.forEach(product => {
+ 
     fetch(`http://localhost:3000/api/products/${product.id}`)
     .then(response => response.json())
     .then(productArticleId => {
 
-    
-    
     // Création d'un élément article pour chaque éléments présent dans le localStorage
     const productArticle = document.createElement('article');
     productArticle.classList.add('cart__item');
@@ -28,7 +26,6 @@ cart.forEach((product) => {
     console.log(productArticle.dataset.id);
     productArticle.dataset.color= product.colors;
     sectioncart.appendChild(productArticle);
-
     //Création d'une div comprenant l'image du produit
     const productDivImg = document.createElement('div');
     productDivImg.classList.add('cart__item__img');
@@ -38,8 +35,6 @@ cart.forEach((product) => {
         productImg.src = productArticleId.imageUrl;
         productImg.alt = productArticleId.name;
         productDivImg.appendChild(productImg);
-
-
     // Création d'une div contenant les informations du produit
     const productDivContent = document.createElement('div');
     productDivContent.classList.add('cart__item__content');
@@ -60,7 +55,6 @@ cart.forEach((product) => {
             const productPrice = document.createElement('p');
             productPrice.textContent = productArticleId.price + '€';
             productDivContentDescription.appendChild(productPrice);
-
     // Création d'une div contenant les propriétés du produits (qty)
     const productDivSettings = document.createElement('div');
     productDivSettings.classList.add('cart__item__settings');
@@ -79,7 +73,6 @@ cart.forEach((product) => {
         productQtyInput.value = product.quantity;
         console.log(productQtyInput.value);
         productDivSettings.appendChild(productQtyInput);
-
     // Création des élément qtéTotal et prixTotal
     totalQuantity += product.quantity;
     totalPrice += productArticleId.price * productQtyInput.value;
@@ -91,9 +84,19 @@ cart.forEach((product) => {
     // Intégration de l'élément prixTotal sur l'id "totalPrice"
     const totalPriceElement = document.getElementById('totalPrice');
     totalPriceElement.textContent = totalPrice;
-
     })
-    
-
 
 });
+}
+else {
+
+    // Intégration de l'élément qtéTotal sur l'id "totalQuantity"
+    const totalQuantityElement = document.getElementById('totalQuantity');
+    totalQuantityElement.textContent = '0';
+
+    // Intégration de l'élément prixTotal sur l'id "totalPrice"
+    const totalPriceElement = document.getElementById('totalPrice');
+    totalPriceElement.textContent = '0';
+
+
+}
