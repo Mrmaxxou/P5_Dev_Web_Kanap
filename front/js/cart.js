@@ -24,6 +24,8 @@ cart.forEach((product) => {
     console.log(productArticle.dataset.id);
     productArticle.dataset.color= product.colors;
     sectioncart.appendChild(productArticle);
+    productArticle.dataset.quantity = product.quantity;
+    console.log(productArticle.dataset.quantity);
 
     //Création d'une div comprenant l'image du produit
     const productDivImg = document.createElement('div');
@@ -57,10 +59,23 @@ cart.forEach((product) => {
             productPrice.textContent = productArticleId.price + '€';
             productDivContentDescription.appendChild(productPrice);
 
-   
-
-
-
+    // Création d'une div contenant les propriétés du produits (qty)
+    const productDivSettings = document.createElement('div');
+    productDivSettings.classList.add('cart__item__settings');
+    productArticle.appendChild(productDivSettings);
+        // Création d'un élément 'p' contenant le texte 'Qté : '
+        const productQtyTxt = document.createElement('p');
+        productQtyTxt.textContent = 'Qté : ';
+        productDivSettings.appendChild(productQtyTxt);
+        // Création d'un élément 'input' pour le champ 'Qté'
+        const productQtyInput = document.createElement('input');
+        productQtyInput.type = 'number';
+        productQtyInput.min = 1;
+        productQtyInput.max = 100;
+        productQtyInput.classList.add('itemQuantity');
+        productQtyInput.name = "itemQuantity";
+        productQtyInput.value = productArticle.dataset.quantity;
+        productDivSettings.appendChild(productQtyInput);
 
     })
     
