@@ -5,7 +5,11 @@ console.log(cart);
 // Sélection de l'élément HTML 
 const sectioncart = document.querySelector('#cart__items');
 
+
 // Création d'une boucle pour la création de chaque produits présent dans le panier
+// Définition de la qtéTotal et du prixTotal
+let totalQuantity = 0;
+let totalPrice = 0;
 
 cart.forEach((product) => {
 
@@ -24,8 +28,6 @@ cart.forEach((product) => {
     console.log(productArticle.dataset.id);
     productArticle.dataset.color= product.colors;
     sectioncart.appendChild(productArticle);
-    productArticle.dataset.quantity = product.quantity;
-    console.log(productArticle.dataset.quantity);
 
     //Création d'une div comprenant l'image du produit
     const productDivImg = document.createElement('div');
@@ -74,8 +76,21 @@ cart.forEach((product) => {
         productQtyInput.max = 100;
         productQtyInput.classList.add('itemQuantity');
         productQtyInput.name = "itemQuantity";
-        productQtyInput.value = productArticle.dataset.quantity;
+        productQtyInput.value = product.quantity;
+        console.log(productQtyInput.value);
         productDivSettings.appendChild(productQtyInput);
+
+    // Création des élément qtéTotal et prixTotal
+    totalQuantity += product.quantity;
+    totalPrice += productArticleId.price * productQtyInput.value;
+
+    // Intégration de l'élément qtéTotal sur l'id "totalQuantity"
+    const totalQuantityElement = document.getElementById('totalQuantity');
+    totalQuantityElement.textContent = totalQuantity;
+
+    // Intégration de l'élément prixTotal sur l'id "totalPrice"
+    const totalPriceElement = document.getElementById('totalPrice');
+    totalPriceElement.textContent = totalPrice;
 
     })
     
