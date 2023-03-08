@@ -58,11 +58,15 @@ if (cart !=null) {
     // Création d'une div contenant les propriétés du produits (qty)
     const productDivSettings = document.createElement('div');
     productDivSettings.classList.add('cart__item__settings');
-    productArticle.appendChild(productDivSettings);
+    productDivContent.appendChild(productDivSettings);
+        // Création d'un élément 'div' avec une class pour la quantité 
+        const productQty= document.createElement('div');
+        productQty.classList.add('cart__item__content__settings__quantity');
+        productDivSettings.appendChild(productQty);
         // Création d'un élément 'p' contenant le texte 'Qté : '
         const productQtyTxt = document.createElement('p');
         productQtyTxt.textContent = 'Qté : ';
-        productDivSettings.appendChild(productQtyTxt);
+        productQty.appendChild(productQtyTxt);
         // Création d'un élément 'input' pour le champ 'Qté'
         const productQtyInput = document.createElement('input');
         productQtyInput.type = 'number';
@@ -72,7 +76,19 @@ if (cart !=null) {
         productQtyInput.name = "itemQuantity";
         productQtyInput.value = product.quantity;
         console.log(productQtyInput.value);
-        productDivSettings.appendChild(productQtyInput);
+        productQty.appendChild(productQtyInput);
+
+        // Création de l'item suppression
+        const productDelete = document.createElement('div');
+        productDelete.classList.add('cart__item__content__settings__delete');
+        productDivSettings.appendChild(productDelete);
+        // Création d'un élément 'p' contenant le texte "supprimer"
+        const productDeleteTxt = document.createElement('p');
+        productDeleteTxt.classList.add('deleteItem');
+        productDeleteTxt.textContent = 'Supprimer';
+        productDelete.appendChild(productDeleteTxt);
+
+
     // Création des élément qtéTotal et prixTotal
     totalQuantity += product.quantity;
     totalPrice += productArticleId.price * productQtyInput.value;
